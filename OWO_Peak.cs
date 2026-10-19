@@ -24,7 +24,26 @@ namespace OWO_PEAK
             owoSkin = new OWOSkin();
 
             harmony = new Harmony("owo.patch.peak");
-            harmony.PatchAll();
+            PatchAllSafe();
+        }
+
+        // PatchAll() aborts on the first unresolvable target; patch per class so one stale target can't disable the rest.
+        private void PatchAllSafe()
+        {
+            foreach (var type in typeof(Plugin).Assembly.GetTypes())
+            {
+                if (!type.IsDefined(typeof(HarmonyPatch), false))
+                    continue;
+
+                try
+                {
+                    harmony.CreateClassProcessor(type).Patch();
+                }
+                catch (System.Exception e)
+                {
+                    Logger.LogError($"Failed to patch {type.Name}: {e.Message}");
+                }
+            }
         }
 
         private void OnDestroy()
