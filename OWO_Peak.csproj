@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>OWO_PEAK</AssemblyName>
+    <RootNamespace>OWO_PEAK</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoWarn>CS0109;CS4014</NoWarn>
+    <!-- Override with: dotnet build -p:PeakDir="C:\path\to\PEAK" -->
+    <PeakDir Condition="'$(PeakDir)' == ''">$(MSBuildProgramFiles32)\Steam\steamapps\common\PEAK</PeakDir>
+    <ManagedDir>$(PeakDir)\PEAK_Data\Managed</ManagedDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="OWO_Peak.cs" />
+    <Compile Include="OWOSkin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Game assemblies: always compile against the installed version -->
+    <Reference Include="Assembly-CSharp"><HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="PhotonUnityNetworking"><HintPath>$(ManagedDir)\PhotonUnityNetworking.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="PhotonRealtime"><HintPath>$(ManagedDir)\PhotonRealtime.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(ManagedDir)\UnityEngine.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath><Private>false</Private></Reference>
+
+    <!-- BepInEx / Harmony from the repo's lib folder -->
+    <Reference Include="BepInEx"><HintPath>lib\BepInEx.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>lib\0Harmony.dll</HintPath><Private>false</Private></Reference>
+
+    <!-- OWO SDK, shipped alongside the plugin -->
+    <Reference Include="OWO"><HintPath>packages\OWO.2.4.2\lib\net48\OWO.dll</HintPath></Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="OWO\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="OWO" />
+  </ItemGroup>
+
+</Project>
