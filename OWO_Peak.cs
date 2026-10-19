@@ -73,7 +73,7 @@ namespace OWO_PEAK
 
             [HarmonyPatch(nameof(Character.RPCA_Die))]
             [HarmonyPostfix]
-            private static void Die(Character __instance, Vector3 itemSpawnPoint)
+            private static void Die(Character __instance)
             {
                 if (!__instance.IsLocal)
                     return;
