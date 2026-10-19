@@ -29,7 +29,7 @@ namespace OWO_PEAK
 
         private void OnDestroy()
         {
-            harmony.UnpatchAll();
+            harmony.UnpatchSelf();
         }
 
         [HarmonyPatch(typeof(Character))]
