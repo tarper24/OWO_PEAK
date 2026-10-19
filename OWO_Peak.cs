@@ -81,7 +81,7 @@ namespace OWO_PEAK
                 owoSkin.StopAllHapticFeedback();
                 owoSkin.Feel("Death", 4);
             }
-            [HarmonyPatch(typeof(Character), "RPCA_Revive", MethodType.Normal)]
+            [HarmonyPatch(typeof(Character), "RPCA_ReviveAtPosition", MethodType.Normal)]
             [HarmonyPostfix]
             private static void Revive(Character __instance, bool applyStatus)
             {
