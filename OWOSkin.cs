@@ -145,6 +145,10 @@ namespace OWO_PEAK
 
         public void Feel(String key, int Priority = 0, int intensity = 0)
         {
+            // Looping sensations (Climbing, Heart Beat, ...) call this repeatedly; keep them out of the log.
+            if (Priority != 0)
+                Plugin.Log.LogDebug($"Feel: {key} (priority {Priority}, intensity {intensity}, state {OWO.ConnectionState})");
+
             if (SensationsMap.ContainsKey(key))
             {
                 Sensation toSend = SensationsMap[key];

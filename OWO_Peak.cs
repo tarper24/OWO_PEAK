@@ -2,6 +2,7 @@
 using BepInEx.Logging;
 using HarmonyLib;
 using Photon.Pun;
+using System.Linq;
 using UnityEngine;
 
 namespace OWO_PEAK
@@ -44,6 +45,8 @@ namespace OWO_PEAK
                     Logger.LogError($"Failed to patch {type.Name}: {e.Message}");
                 }
             }
+
+            Logger.LogDebug($"Patched {harmony.GetPatchedMethods().Count()} methods");
         }
 
         private void OnDestroy()
